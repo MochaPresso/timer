@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "install": "^0.13.0"
+  },
+  "name": "timer",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "sass": "^1.49.9"
+  },
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
