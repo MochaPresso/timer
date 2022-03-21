@@ -117,7 +117,7 @@ span {
   // align-items: center;
   // justify-content: center;
 
-  .rotate-minute {
+  .rotate-in-clock {
     display: flex;
     position: relative;
     left: 50%;
@@ -136,33 +136,6 @@ span {
       box-shadow: 1px 0 1px rgba(0, 0, 0, 0.2), -1px 0 1px rgba(0, 0, 0, 0.2);
       border-radius: 5px;
       // z-index: 1;
-    }
-
-    .minute {
-      display: flex;
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: #5dc1e9;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      // z-index: 1;
-
-      // &::before {
-      //   content: "";
-      //   display: block;
-      //   position: absolute;
-      //   bottom: 50%;
-      //   left: 50%;
-      //   transform-origin: bottom;
-      //   transform: translateX(-50%);
-      //   width: 4px;
-      //   height: 98px;
-      //   // border: 0.1px solid rgba($color: #383838, $alpha: 0.8);
-      //   box-shadow: 1px 0 1px rgba(0, 0, 0, 0.2), -1px 0 1px rgba(0, 0, 0, 0.2);
-      //   border-radius: 5px;
-      // }
     }
 
     .center-line {

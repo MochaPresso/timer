@@ -1,3 +1,4 @@
+// create clock lines
 (function createLines() {
   const clockLines = document.querySelector(".clock-lines");
   let rotate = 0;
@@ -18,14 +19,15 @@
   }
 })();
 
+// make minute hand turn when click mouse
 (function minuteCircle() {
   const rotateCircle = document.querySelector(".rotate-circle");
-  const rotateMinute = document.querySelector(".rotate-minute");
+  const rotateInClock = document.querySelector(".rotate-in-clock");
   let offsetRad;
   let targetRad = 0;
   let previousRad;
 
-  console.log(this);
+  // console.log(this);
 
   try {
     rotateCircle.addEventListener("mousedown", down);
@@ -36,26 +38,26 @@
   function down(e) {
     offsetRad = getRotation(e);
     previousRad = offsetRad;
-    window.addEventListener("mousemove", move);
     window.addEventListener("mouseup", up);
-  }
-
-  function move(e) {
-    let newRad = getRotation(e);
-    console.log(newRad);
-    targetRad += newRad - previousRad;
-    console.log(targetRad);
-    previousRad = newRad;
-    let angle = Math.floor((targetRad / Math.PI) * 180) % 360;
-    angle = angle >= 0 ? angle : angle + 360;
-    if (angle >= 1 && angle < 6) return;
-
-    rotateMinute.style.transform = `rotate(${angle}deg)`;
+    window.addEventListener("mousemove", move);
   }
 
   function up() {
     window.removeEventListener("mousemove", move);
     window.removeEventListener("mouseup", up);
+  }
+
+  function move(e) {
+    let newRad = getRotation(e);
+    // console.log(newRad);
+    targetRad += newRad - previousRad;
+    // console.log(targetRad);
+    previousRad = newRad;
+    let angle = Math.floor((targetRad / Math.PI) * 180) % 360;
+    angle = angle >= 0 ? angle : angle + 360;
+    if (angle >= 1 && angle < 6) return;
+
+    rotateInClock.style.transform = `rotate(${angle}deg)`;
   }
 
   function getRotation(e) {
