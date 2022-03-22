@@ -44,15 +44,27 @@ ul {
   }
 }
 
-span {
+span-left {
   display: flex;
   width: 2px;
   height: 78%;
   position: absolute;
   top: 50%;
   left: 50%;
+  // z-index: 3;
 
-  &::after {
+  // &::before {
+  //   content: "";
+  //   background-color: #2b2b2b;
+  //   position: absolute;
+  //   width: 50%;
+  //   height: 7px;
+  //   bottom: 5px;
+  //   left: 0;
+  //   transform: translateX(50%);
+  // }
+
+  &::before {
     content: "";
     background-color: #2b2b2b;
     position: absolute;
@@ -63,7 +75,33 @@ span {
     transform: translateX(50%);
   }
 
-  &::before {
+  &.fives {
+    // &::before {
+    //   bottom: 1.5px;
+    //   width: 2px;
+    //   height: 12px;
+    //   transform: translateX(0);
+    // }
+
+    &::before {
+      top: 1.5px;
+      width: 2px;
+      height: 12px;
+      transform: translateX(0);
+    }
+  }
+}
+
+span-right {
+  display: flex;
+  width: 2px;
+  height: 78%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  // z-index: 3;
+
+  &::after {
     content: "";
     background-color: #2b2b2b;
     position: absolute;
@@ -76,12 +114,6 @@ span {
 
   &.fives {
     &::after {
-      top: 1.5px;
-      width: 2px;
-      height: 12px;
-      transform: translateX(0);
-    }
-    &::before {
       bottom: 1.5px;
       width: 2px;
       height: 12px;
@@ -117,10 +149,19 @@ span {
   // align-items: center;
   // justify-content: center;
 
+  #vvCanvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
   .rotate-in-clock {
     display: flex;
     position: relative;
     left: 50%;
+    z-index: 2;
 
     .minute-line {
       $height: 98px;
@@ -135,7 +176,7 @@ span {
       height: $height;
       box-shadow: 1px 0 1px rgba(0, 0, 0, 0.2), -1px 0 1px rgba(0, 0, 0, 0.2);
       border-radius: 5px;
-      // z-index: 1;
+      z-index: 1;
     }
 
     .center-line {
@@ -151,11 +192,7 @@ span {
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 10px;
-      // z-index: 1;
-      // box-shadow: inset 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.8),
-      //   inset -0.5px -0.5px 0.5px rgba(0, 0, 0, 0.8),
-      //   inset -0.5px 0.5px 0.5px rgba(0, 0, 0, 0.8),
-      //   inset 0.5px -0.5px 0.5px rgba(0, 0, 0, 0.8);
+      z-index: 3;
     }
 
     .center-circle {
@@ -168,15 +205,76 @@ span {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      // z-index: 1;
-      // box-shadow: inset 0.5px 0 0.5px rgba(0, 0, 0, 0.8),
-      //   inset -0.5px -0.5px 0.5px rgba(0, 0, 0, 0.8),
-      //   inset -0.5px 0 0.5px rgba(0, 0, 0, 0.8),
-      //   inset 0.5px -0.5px 0.5px rgba(0, 0, 0, 0.8);
+      z-index: 3;
     }
   }
 
-  .rotate-circle {
+  .wrapper {
+    position: relative;
+    width: 196px;
+    height: 196px;
+    border-radius: 50%;
+    background: #fdfaf7;
+    opacity: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .pie {
+      width: 50%;
+      height: 100%;
+      position: absolute;
+      background: deeppink;
+      border: 1px soild rgba($color: #000, $alpha: 0.5);
+    }
+
+    .spinner {
+      border-radius: 0 98px 98px 0;
+      border-right: none;
+      // transform: rotate(330deg);
+      z-index: 2;
+      transform-origin: 0%;
+      left: 50%;
+    }
+
+    .filter {
+      border-radius: 98px 0 0 98px;
+      border-left: none;
+      opacity: 1;
+      transform-origin: 100%;
+      z-index: 1;
+    }
+
+    .mask-left {
+      border-radius: 98px 0 0 98px;
+      top: -1%;
+      left: -2%;
+      width: 52%;
+      height: 102%;
+      position: absolute;
+      opacity: 1;
+      background: inherit;
+      z-index: 1;
+    }
+
+    .mask-right {
+      border-radius: 0 98px 98px 0;
+      top: -1%;
+      width: 52%;
+      height: 102%;
+      position: absolute;
+      opacity: 1;
+      background: inherit;
+      left: 50%;
+      z-index: 2;
+    }
+
+    .clock-lines {
+      user-select: none;
+    }
+  }
+
+  .rotate-clock {
     display: flex;
     position: absolute;
     width: 210px;
@@ -186,10 +284,6 @@ span {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
-  }
-
-  .clock-lines {
-    user-select: none;
+    z-index: 2;
   }
 }
