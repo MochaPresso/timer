@@ -1,3 +1,8 @@
+let countdown;
+let countdownTitle;
+const rotateCircle = document.querySelector(".rotate-clock");
+const rotateInClock = document.querySelectorAll(".rotate-in-clock");
+
 // create clock lines
 (function createLinesLeftSide() {
   const clockLines = document.querySelector(`.clock-lines.left-side`);
@@ -41,12 +46,6 @@
 
 // make minute hand turn when click mouse
 (function minuteCircle() {
-  const rotateCircle = document.querySelector(".rotate-clock");
-  const rotateInClock = document.querySelectorAll(".rotate-in-clock");
-  const wrapperSpinner = document.querySelector(".spinner");
-  const wrapperFilter = document.querySelector(".filter");
-  const rightMask = document.querySelector(".mask-right");
-  const aaa = document.querySelector(".left-side");
   let offsetRad;
   let targetRad = 0;
   let previousRad;
@@ -60,7 +59,10 @@
   }
 
   function down(e) {
+    clearInterval(countdown);
+    clearInterval(countdownTitle);
     offsetRad = getRotation(e);
+    // console.log(offsetRad);
     previousRad = offsetRad;
     window.addEventListener("mouseup", up);
     window.addEventListener("mousemove", move);
@@ -68,7 +70,7 @@
 
   function up(e) {
     // console.log(e);
-    console.log(timer(move(e)));
+    timer(move(e));
     window.removeEventListener("mousemove", move);
     window.removeEventListener("mouseup", up);
   }
@@ -81,25 +83,19 @@
     previousRad = newRad;
     let angle = Math.floor((targetRad / Math.PI) * 180) % 360;
     angle = angle >= 0 ? angle : angle + 360;
-    if (angle >= 1 && angle < 6) return;
+    // if (angle >= 1 && angle < 6) {
+    //   return
+    // };
 
-    // if (angle == 0) {
-    //   rightMask.style.opacity = 1;
-    //   wrapperSpinner.style.transform = `rotate(${angle}deg)`;
-    //   wrapperFilter.style.transform = `rotate(${angle}deg)`;
-    // } else if (angle >= 180 && angle <= 360) {
-    //   rightMask.style.opacity = 1;
-    //   wrapperSpinner.style.transform = `rotate(${angle}deg)`;
-    // } else if (angle >= 6 && angle <= 180) {
-    //   rightMask.style.opacity = 0;
-    //   wrapperSpinner.style.transform = `rotate(180deg)`;
-    //   wrapperFilter.style.transform = `rotate(${180 + angle}deg)`;
-    // }
+    if (angle <= 3 && angle >= 0) {
+      angle = 0;
+    } else if (angle < 6 && angle > 3) {
+      angle = 6;
+    }
 
     rotateInClock[0].style.transform = `rotate(${angle}deg)`;
     rotateInClock[1].style.transform = `rotate(${angle}deg)`;
-    let aa = createCircle(angle);
-    console.log(aa);
+    createCircle(angle);
 
     return angle;
   }
@@ -137,31 +133,6 @@
     return { x: canvasX, y: canvasY };
   }
 })();
-
-function timer(seconds) {
-  let convertSeconds = (360 - seconds) * 10;
-  let countdown;
-
-  console.log(convertSeconds);
-
-  //clear any existing timers
-  clearInterval(countdown);
-
-  const now = Date.now();
-  const then = (now + convertSeconds) * 1000;
-
-  countdown = setInterval(() => {
-    const secondsLeft = Math.round((then - Date.now()) / 1000);
-    // console.log(secondsLeft);
-
-    if (secondsLeft < 0) {
-      clearInterval(countdown);
-      return;
-    }
-  }, 1000);
-
-  // console.log(countdown);
-}
 
 function createCircle(element) {
   refreshCanvas(element);
@@ -207,4 +178,60 @@ function createCircle(element) {
   };
 
   return element;
+}
+
+function timer(seconds) {
+  clearInterval(countdown);
+  clearInterval(countdownTitle);
+  let convertSeconds = (360 - seconds) * 10;
+  if (convertSeconds === 3600) {
+    convertSeconds = 0;
+  }
+
+  // console.log(convertSeconds);
+
+  //clear any existing timers
+
+  const now = Date.now();
+  const then = now + convertSeconds * 1000;
+
+  countdown = setInterval(() => {
+    const secondsLeft = Math.round((then - Date.now()) / 20);
+    // console.log(secondsLeft);
+
+    if (secondsLeft < 0) {
+      clearInterval(countdown);
+      return;
+    }
+
+    let movement = 360 - secondsLeft / 500;
+
+    rotateInClock[0].style.transform = `rotate(${movement}deg)`;
+    rotateInClock[1].style.transform = `rotate(${movement}deg)`;
+    createCircle(movement);
+  }, 20);
+
+  countdownTitle = setInterval(() => {
+    const secondsLeft = Math.round((then - Date.now()) / 1000);
+    // console.log(secondsLeft);
+
+    if (secondsLeft < 0) {
+      clearInterval(countdownTitle);
+      return;
+    }
+
+    displayTimeLeft(secondsLeft);
+  }, 1000);
+
+  // return countdown;
+}
+
+function displayTimeLeft(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainderSeconds = seconds % 60;
+  const display = `${minutes}:${
+    remainderSeconds < 10 ? "0" : ""
+  }${remainderSeconds}`;
+
+  document.title = display;
 }
