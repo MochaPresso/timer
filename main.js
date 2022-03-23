@@ -1,3 +1,5 @@
+import { alarmSoundAudioString } from "./alarm_sound";
+
 let countdown;
 let countdownTitle;
 const rotateCircle = document.querySelector(".rotate-clock");
@@ -9,7 +11,7 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
   let rotate = 0;
 
   function byFive(e) {
-    return e / 5 === parseInt(e / 5, 10) ? true : false;
+    return e / 5 === parseInt(e / 5, 10);
   }
 
   for (i = 1; i < 31; i++) {
@@ -29,7 +31,7 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
   let rotate = 0;
 
   function byFive(e) {
-    return e / 5 === parseInt(e / 5, 10) ? true : false;
+    return e / 5 === parseInt(e / 5, 10);
   }
 
   for (i = 1; i < 31; i++) {
@@ -59,6 +61,7 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
   }
 
   function down(e) {
+    // onMouseDown
     clearInterval(countdown);
     clearInterval(countdownTitle);
     offsetRad = getRotation(e);
@@ -69,6 +72,7 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
   }
 
   function up(e) {
+    // onMouseUp
     // console.log(e);
     timer(move(e));
     window.removeEventListener("mousemove", move);
@@ -76,12 +80,13 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
   }
 
   function move(e) {
+    // onMouseMove
     let newRad = getRotation(e);
     // console.log(newRad);
     targetRad += newRad - previousRad;
     // console.log(targetRad);
     previousRad = newRad;
-    let angle = Math.floor((targetRad / Math.PI) * 180) % 360;
+    let angle = Math.floor((targetRad / Math.PI) * 180) % 360; // targetAngle
     angle = angle >= 0 ? angle : angle + 360;
     // if (angle >= 1 && angle < 6) {
     //   return
@@ -101,6 +106,7 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
   }
 
   function getRotation(e) {
+    // getMousePositionAngle
     let pos = mousePos(e, rotateCircle);
     let x = pos.x;
     let y = pos.y;
@@ -191,7 +197,6 @@ function timer(seconds) {
   // console.log(convertSeconds);
 
   //clear any existing timers
-
   const now = Date.now();
   const then = now + convertSeconds * 1000;
 
@@ -201,6 +206,7 @@ function timer(seconds) {
 
     if (secondsLeft < 0) {
       clearInterval(countdown);
+      beep();
       return;
     }
 
@@ -234,4 +240,9 @@ function displayTimeLeft(seconds) {
   }${remainderSeconds}`;
 
   document.title = display;
+}
+
+function beep() {
+  let snd = new Audio(alarmSoundAudioString);
+  snd.play();
 }
