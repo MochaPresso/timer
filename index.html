@@ -21,40 +21,56 @@
     <title>Timer</title>
   </head>
   <body>
-    <div class="border-clock"></div>
-    <div class="clock">
-      <ul>
-        <li><i>0</i></li>
-        <li><i>55</i></li>
-        <li><i>50</i></li>
-        <li><i>45</i></li>
-        <li><i>40</i></li>
-        <li><i>35</i></li>
-        <li><i>30</i></li>
-        <li><i>25</i></li>
-        <li><i>20</i></li>
-        <li><i>15</i></li>
-        <li><i>10</i></li>
-        <li><i>5</i></li>
+    <main>
+      <div class="border-clock">
+        <div class="clock">
+          <ul>
+            <li><i>0</i></li>
+            <li><i>55</i></li>
+            <li><i>50</i></li>
+            <li><i>45</i></li>
+            <li><i>40</i></li>
+            <li><i>35</i></li>
+            <li><i>30</i></li>
+            <li><i>25</i></li>
+            <li><i>20</i></li>
+            <li><i>15</i></li>
+            <li><i>10</i></li>
+            <li><i>5</i></li>
+          </ul>
+
+          <div class="rotate-in-clock">
+            <div class="minute-line"></div>
+          </div>
+
+          <canvas id="vvCanvas"></canvas>
+
+          <div class="rotate-in-clock">
+            <div class="center-line"></div>
+            <!--clock knob-->
+            <div class="center-circle"></div>
+            <!--clock knob-->
+          </div>
+
+          <div class="clock-lines right-side"></div>
+          <div class="clock-lines left-side"></div>
+
+          <div class="rotate-clock"></div>
+        </div>
+      </div>
+    </main>
+
+    <div class="selectBox">
+      <button class="label">Timer Size</button>
+      <ul class="optionList">
+        <li class="optionItem">× 1.0</li>
+        <li class="optionItem">× 1.25</li>
+        <li class="optionItem">× 1.5</li>
+        <li class="optionItem">× 1.75</li>
+        <li class="optionItem">× 2.0</li>
       </ul>
-
-      <div class="rotate-in-clock">
-        <div class="minute-line"></div>
-      </div>
-
-      <canvas id="vvCanvas"></canvas>
-
-      <div class="rotate-in-clock">
-        <div class="center-line"></div>
-        <!--clock knob-->
-        <div class="center-circle"></div>
-        <!--clock knob-->
-      </div>
-
-      <div class="clock-lines right-side"></div>
-      <div class="clock-lines left-side"></div>
-
-      <div class="rotate-clock"></div>
     </div>
+
+    <audio src="./sound/alarm_sound.mp3"></audio>
   </body>
 </html>

@@ -1,9 +1,8 @@
-import { alarmSoundAudioString } from "./alarm_sound";
-
 let countdown;
 let countdownTitle;
 const rotateCircle = document.querySelector(".rotate-clock");
 const rotateInClock = document.querySelectorAll(".rotate-in-clock");
+const alarmSound = document.querySelector("audio");
 
 // create clock lines
 (function createLinesLeftSide() {
@@ -69,6 +68,8 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
     previousRad = offsetRad;
     window.addEventListener("mouseup", up);
     window.addEventListener("mousemove", move);
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
   }
 
   function up(e) {
@@ -206,7 +207,7 @@ function timer(seconds) {
 
     if (secondsLeft < 0) {
       clearInterval(countdown);
-      beep();
+      alarmSound.play();
       return;
     }
 
@@ -242,7 +243,30 @@ function displayTimeLeft(seconds) {
   document.title = display;
 }
 
-function beep() {
-  let snd = new Audio(alarmSoundAudioString);
-  snd.play();
-}
+const label = document.querySelector(".label");
+const options = document.querySelectorAll(".optionItem");
+const main = document.querySelector("main");
+
+// 클릭한 옵션의 텍스트를 라벨 안에 넣음
+const handleSelect = (item) => {
+  label.parentNode.classList.remove("active");
+  label.innerHTML = item.textContent;
+};
+
+// 옵션 클릭 시 클릭한 옵션을 넘김
+options.forEach((option) => {
+  option.addEventListener("click", () => {
+    sizeIndex = parseFloat(option.innerHTML.slice(2));
+    handleSelect(option);
+    main.style.transform = `scale(${sizeIndex})`;
+  });
+});
+
+// 옵션 클릭 시 옵션 목록이 열림 / 닫힘
+label.addEventListener("click", () => {
+  if (label.parentNode.classList.contains("active")) {
+    label.parentNode.classList.remove("active");
+  } else {
+    label.parentNode.classList.add("active");
+  }
+});
