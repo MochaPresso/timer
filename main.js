@@ -5,41 +5,21 @@ const rotateInClock = document.querySelectorAll(".rotate-in-clock");
 const alarmSound = document.querySelector("audio");
 
 // create clock lines
-(function createLinesLeftSide() {
-  const clockLines = document.querySelector(`.clock-lines.left-side`);
+(function createLines() {
+  const clockLines = document.querySelector(`.clock-lines`);
   let rotate = 0;
 
   function byFive(e) {
     return e / 5 === parseInt(e / 5, 10);
   }
 
-  for (i = 1; i < 31; i++) {
-    let span = document.createElement("span-left");
+  for (i = 0; i < 30; i++) {
+    let span = document.createElement("span");
 
     if (byFive(i)) {
       span.className = "fives";
     }
-    span.style.transform = `translate(-50%, -50%) rotate(${rotate + 6}deg)`;
-    clockLines.appendChild(span);
-    rotate += 6;
-  }
-})();
-
-(function createLinesRightSide() {
-  const clockLines = document.querySelector(`.clock-lines.right-side`);
-  let rotate = 0;
-
-  function byFive(e) {
-    return e / 5 === parseInt(e / 5, 10);
-  }
-
-  for (i = 1; i < 31; i++) {
-    let span = document.createElement("span-right");
-
-    if (byFive(i)) {
-      span.className = "fives";
-    }
-    span.style.transform = `translate(-50%, -50%) rotate(${rotate + 6}deg)`;
+    span.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
     clockLines.appendChild(span);
     rotate += 6;
   }
